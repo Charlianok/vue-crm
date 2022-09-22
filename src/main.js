@@ -1,5 +1,4 @@
 import { createApp } from 'vue'
-import Vuelidate from 'vuelidate'
 import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
@@ -18,10 +17,4 @@ firebase.initializeApp({
   measurementId: 'G-P6CGV26BGL'
 })
 
-let app
-
-firebase.auth().onAuthStateChanged(() => {
-  if (!app) {
-    app = createApp(App).use(Vuelidate).use(store).use(router).mount('#app')
-  }
-})
+createApp(App).use(store).use(router).mount('#app')
