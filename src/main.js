@@ -3,9 +3,10 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
-import 'firebase/compat/firestore'
+import 'firebase/compat/database'
 
 firebase.initializeApp({
   apiKey: 'AIzaSyBUzFG4qcqkRREZb6Xe3LcVuBCvsHr2_a4',
@@ -17,4 +18,10 @@ firebase.initializeApp({
   measurementId: 'G-P6CGV26BGL'
 })
 
-createApp(App).use(store).use(router).mount('#app')
+let app
+
+firebase.auth().onAuthStateChanged(() => {
+  if (!app) {
+    createApp(App).use(store).use(router).mount('#app')
+  }
+})
